@@ -5,6 +5,10 @@ from scripts import FakeNewsDetector
 model = FakeNewsDetector()
 
 
+# page general configurations
+st.set_page_config("Fake News Detector", page_icon="🕵️‍♀️")
+
+
 # ***************** Streamlit working: starts ************** #
 
 # ------------------ Sidebar -------------------------- #
