@@ -1,5 +1,8 @@
 import streamlit as st
 
+from scripts import FakeNewsDetector
+
+model = FakeNewsDetector()
 
 
 # ***************** Streamlit working: starts ************** #
@@ -27,25 +30,58 @@ st.divider()
 
 # showing information to the user
 info = """\
-Real News:
-> Pahalgam terror attack: Mallikarjun Kharge claims PM Modi cancelled Kashmir visit after receiving intelligence report.
+Demo of Real News:
+> Israel’s military says it has fully disabled Yemen’s main airport with airstrikes.
 
 
 \n\n
-Fake News:
-> *Update in future*
+Demo of Fake News:
+> In the Amazon forest an ant eat an elephant in mid night
 """
 
 st.write(info)
 
+st.divider()
+
+col1, col2 = st.columns([2,1])
 
 
+with col1:
+    # Taking a news from user
+    news = st.text_input(
+        label = "Enter a news headline here: ",
+        key = "news_input",
+        max_chars = 250, # 📖
+        icon = "📝"
+    )
 
-#       Taking a news from user
+with col2:
+    st.button(
+        label = "Detect Now",
+        key = 'detect_now_button_key',
+        type = 'secondary',
+        use_container_width = True,
+        help = ""
+    )
 
-news = st.text_input(
-    label = "Enter a news headline here: ",
-    key = "news_input",
-    max_chars = 250, # 📖
-    icon = "📝"
-)
+
+if st.session_state.detect_now_button_key:
+    try:
+        if news:
+            # cleaning text
+            news = news.lower().strip()
+
+            label, confidense = model.predict(news)
+
+            if label == 'real':
+                msg = ":green[😃 Given news is real]"
+            elif label == 'fake':
+                msg = ":red[⚠️ Given news is fake]"
+            else:
+                msg = "😞 I am confused to detect it..."
+
+            st.write(f"{round(confidense*100)}%")
+            st.subheader(msg)
+
+    except:
+        pass
