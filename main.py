@@ -1,7 +1,8 @@
+# dependencies
 import streamlit as st
-
 from scripts import FakeNewsDetector
 
+# model instance creation
 model = FakeNewsDetector()
 
 
