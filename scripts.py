@@ -39,8 +39,10 @@ class FakeNewsDetector():
         # prediction
         prediction = self.model.predict(padded_tokens, verbose=False)
 
+        # fetching confidense 
         confidense = prediction[0][0]
 
+        # fetching label
         label = 'fake' if confidense < 0.5 else 'real' if confidense > 0.65 else 'not sure'
 
         return (label, confidense)
