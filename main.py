@@ -70,6 +70,7 @@ with col2:
     )
 
 
+
 if st.session_state.detect_now_button_key:
     try:
         if news:
