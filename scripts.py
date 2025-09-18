@@ -49,12 +49,14 @@ class FakeNewsDetector():
     
 
 
-
+# unit test
 if __name__ == "__main__":
 
+    # creating model instance
     model = FakeNewsDetector()
     q = "An ant drive a car with seat belt"
 
+    # display output 
     print(model.predict(q))
         
 
